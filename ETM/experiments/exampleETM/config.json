@@ -1,0 +1,35 @@
+{
+  "basic_config":{
+    "policy":"ETMCache",
+    "trace":"wiki2018"
+  },
+  
+  "policy_config":{
+      "cache_size":10000000000,
+
+      "hash_embedding":{
+          "num_buckets":10000,
+          "embedding_dim":32
+      },
+      "TCN":{
+          ""
+      },
+
+      "MLP":{
+
+      }
+  },
+  
+  "evaluator_config":{
+      "region":100000,
+      "verbose":true
+      
+  },
+  "result_config":{
+      "record":true,
+      "hit_rate":100000,
+      "verbose":true
+  }
+
+
+}

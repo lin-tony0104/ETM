@@ -1,0 +1,98 @@
+#全部流程:
+#呼叫eviction.py , admission_policy.py 做決策
+# #收集訓練資料給TCN
+import json
+import sys
+
+from CacheEvaluator import CacheEvaluator
+# policies
+from policies.LRU.LRU import LRU_policy
+from policies.LFU.LFU import LFU_policy
+from policies.ETM_AEP.ETM_AEP import ETM_AEP_policy
+
+# from policies.my_method import my_method
+if __name__ == "__main__":
+    #取得實驗名稱
+    if len(sys.argv)==2:
+        try:
+            exp=sys.argv[1]
+            open("experiments/"+exp+"/config.json",'r')
+        except Exception as e:
+            print(e)
+            sys.exit()
+    else:
+        print("參數格式:")
+        print("python ETM_labeling.py [experiment_name]")
+        sys.exit()
+
+
+
+
+def parse_config(exp_name):
+    #get_config
+    policy_list={
+        "LRU":LRU_policy,
+        "LFU":LFU_policy,
+        "ETM_AEP":ETM_AEP_policy } #,"my_method":my_method}
+    
+    #開啟config
+    config=None
+    config_path="experiments/"+exp_name+"/config.json"
+    with open(config_path,"r") as f:
+        config=json.load(f)
+
+    #拆出各自config
+    basic_config=config["basic_config"]
+    policy_config=config["policy_config"]
+    evaluator_config=config["evaluator_config"]
+
+    #初始化各功能
+    trace_path = "trace/"+basic_config["trace"]
+    policy_class = policy_list[basic_config["policy"]]
+    policy = policy_class(policy_config)
+    evaluator = CacheEvaluator(evaluator_config, exp_name)
+
+
+    return policy,trace_path,evaluator, config
+
+
+
+
+if __name__ == "__main__":
+    #取得實驗名稱
+    if len(sys.argv)==2:
+        try:
+            exp=sys.argv[1]
+            open("experiments/"+exp+"/config.json",'r')
+        except Exception as e:
+            print(e)
+            sys.exit()
+    else:
+        print("參數格式:")
+        print("python ETM_labeling.py [experiment_name]")
+        sys.exit()
+    # exp_name=sys.argv[1]
+    # exp_name="exampleLFU"
+    # exp_name="exampleLRU"
+    # exp_name="TCN_test"
+    # exp_name="TCN_twitter"
+    
+    policy,trace_path,evaluator, config= parse_config(exp) # 設置完的policy 和 policy
+
+
+
+    print("config: ")
+    print(json.dumps(config, indent=4, ensure_ascii=False))  # ✅漂亮縮排
+
+    with open(trace_path,"r")as f:
+        for req in f:
+            temp=req.split()
+            o_id = temp[0]
+            o_size = temp[1]
+            o_features = temp[2:]
+            hit=policy.request(o_id,o_size,o_features)
+            evaluator.record(hit) #會順便show進度
+        evaluator.save_result()
+
+    print("config: ")
+    print(json.dumps(config, indent=4, ensure_ascii=False))  # ✅漂亮縮排

@@ -1,0 +1,35 @@
+{
+  "basic_config":{
+    "trace":"wiki2018"
+  },
+  
+  "policy_config":{
+      "hash_embedding":{
+          "num_buckets":10000,
+          "embedding_dim":32
+      },
+      "TCN":{
+          "version":"v1",
+          "num_inputs":100,
+          "num_channels":[],
+          "kernel_size":2,
+          "dropout":0.2
+          
+      },
+
+      "MLP":{
+          "tcn_output_dim":10000,
+          "emb_id_dim":10000,
+          "hidden_dims":[10,20,30]
+
+      }
+  },
+  
+  "evaluator_config":{
+      "region":100000,
+      "verbose":true
+      
+  }
+
+
+}
