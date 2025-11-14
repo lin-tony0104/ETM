@@ -1,4 +1,4 @@
-#可執行的python:
+# 可執行的python:
 
 ../ETM/run.py [exp_name] 
   根據experiments/[exp_name]/config.json設定跑實驗，並將結果儲存在experiments/[exp_name]/result/
@@ -17,6 +17,7 @@
   
 ../ETM/policies/ETM_AEP/label_check.py [exp_name] 
   展示預測熱門度與實際值差距
+  
 ---
-#備註
+# 備註
 跑ETM實驗前需要先做ETM_labeling.py才可跑 run.py ETM_exp
