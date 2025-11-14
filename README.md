@@ -15,7 +15,7 @@
 ## ../ETM/policies/ETM_AEP/ETM_labeling.py [exp_name] 
   將trace加上熱門度
   
-##　../ETM/policies/ETM_AEP/label_check.py [exp_name] 
+## ../ETM/policies/ETM_AEP/label_check.py [exp_name] 
   展示預測熱門度與實際值差距
   
 ---
