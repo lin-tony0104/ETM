@@ -46,7 +46,7 @@ for exp_name, OHR, cum_hits_rate, region in zip(exp_names, OHRs, cum_hits_rates,
 
 # plt.plot(x, targets.get_result(), label="Target", linewidth=2)     # 紅色預設會自動分配
 
-plt.title("OHR")       # 標題
+plt.title("cun_OHR")       # 標題
 plt.xlabel("cum_Request")       # x軸標註
 plt.ylabel("Hitrate")               # y軸標註
 
