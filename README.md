@@ -20,4 +20,5 @@
   
 ---
 # 備註
-跑ETM實驗前需要先做ETM_labeling.py才可跑 run.py ETM_exp
+- 跑ETM實驗前需要先做ETM_labeling.py才可跑 run.py ETM_exp </br>
+- 對../policy/[method]/env.yml 執行**conda env create -f env.yml** 獲取環境
