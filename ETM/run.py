@@ -9,21 +9,10 @@ from CacheEvaluator import CacheEvaluator
 from policies.LRU.LRU import LRU_policy
 from policies.LFU.LFU import LFU_policy
 from policies.ETM_AEP.ETM_AEP import ETM_AEP_policy
+from policies.ASC_IP.ASC_IP import ASC_IP_policy
 
 # from policies.my_method import my_method
-if __name__ == "__main__":
-    #取得實驗名稱
-    if len(sys.argv)==2:
-        try:
-            exp=sys.argv[1]
-            open("experiments/"+exp+"/config.json",'r')
-        except Exception as e:
-            print(e)
-            sys.exit()
-    else:
-        print("參數格式:")
-        print("python ETM_labeling.py [experiment_name]")
-        sys.exit()
+
 
 
 
@@ -33,7 +22,8 @@ def parse_config(exp_name):
     policy_list={
         "LRU":LRU_policy,
         "LFU":LFU_policy,
-        "ETM_AEP":ETM_AEP_policy } #,"my_method":my_method}
+        "ETM_AEP":ETM_AEP_policy,
+        "ASC_IP":ASC_IP_policy} #,"my_method":my_method}
     
     #開啟config
     config=None
