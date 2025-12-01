@@ -1,25 +1,17 @@
-# 可執行的python:
+# python環境:
+使用yml獲取
 
-**../ETM/run.py [exp_name]**</br>
-　根據experiments/[exp_name]/config.json設定跑實驗，並將結果儲存在experiments/[exp_name]/result/
-
-**../ETM/show_result.py [exp_name1, exp_name2, ...]**</br>
-　展示實驗結果
-
-**../ETM/trace/cut_trace.py [trace_name, cut_size]**</br>
-　裁剪trace長度
-
-**../ETM/trace/get_trace_info.py [trace_name]**</br>
-　計算trac特性(working set size, 請求數, 相異obj數)
-
-**../ETM/policies/ETM_AEP/ETM_labeling.py [exp_name]**</br> 
-　將trace加上熱門度
-  
-**../ETM/policies/ETM_AEP/label_check.py [exp_name]**</br> 
-　展示預測熱門度與實際值差距
-  
 ---
-# 備註
-- 跑ETM實驗前需要先做ETM_labeling.py才可跑 run.py ETM_exp </br>
-- 對../policy/[method]/env.yml 執行**conda env create -f env.yml** 獲取環境
-- 執行**conda env export > env.yml** 打包環境
+# c++環境
+- visual studio build tools 2017
+- visual c++ build tools(win 10 SDK, 適用於CMake的c++工具, 測試工具的核心功能-建置工具, x86與x64版C++編譯器ATL, 桌上型電腦版的VC++工具組)
+---
+# 備註:
+- 目前已有附上adaptsize.pyd如果要重新編譯才需要下列步驟
+
+ **cd build** </br>
+ **cmake -A x64 ..** </br>
+ **cmake --build . --config Release** </br>
+ 到build/Release/  把adaptsize.pyd取出 並使用 </br>
+
+- adaptsize.pyd 是使用pybind將AdaptSize的C語言實作打包成函式庫使用，打包lookup(o_id, o_size), admit(o_id, o_size)並在完成組裝使用。
