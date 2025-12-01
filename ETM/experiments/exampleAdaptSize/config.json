@@ -1,0 +1,23 @@
+{
+  "basic_config":{
+    "policy":"AdaptSize",
+    "trace":"wiki2018"
+  },
+  
+  "policy_config":{
+      "cache_size":2748779070
+  },
+  
+  "evaluator_config":{
+      "region":1000000,
+      "verbose":true
+  },
+  "result_config":{
+      "record":true,
+      "hit_rate":1000000,
+      "verbose":true
+  }
+
+
+
+}
