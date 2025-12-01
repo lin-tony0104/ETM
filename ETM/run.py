@@ -5,25 +5,33 @@ import json
 import sys
 
 from CacheEvaluator import CacheEvaluator
+
+
+import importlib
 # policies
-from policies.LRU.LRU import LRU_policy
-from policies.LFU.LFU import LFU_policy
-from policies.ETM_AEP.ETM_AEP import ETM_AEP_policy
-from policies.ASC_IP.ASC_IP import ASC_IP_policy
+# from policies.LRU.LRU import LRU_policy
+# from policies.LFU.LFU import LFU_policy
+# from policies.ETM_AEP.ETM_AEP import ETM_AEP_policy
+# from policies.ASC_IP.ASC_IP import ASC_IP_policy
+# from policies.AdaptSize.AdaptSize import Adaptsize_policy
+policy_registry={
+    "LRU":"policies.LRU.LRU:LRU_policy",
+    "LFU":"policies.LFU.LFU:LFU_policy",
+    "ETM_AEP":"policies.ETM_AEP.ETM_AEP:ETM_AEP_policy",
+    "ASC_IP":"policies.ASC_IP.ASC_IP:ASC_IP_policy",
+    "AdaptSize":"policies.AdaptSize.AdaptSize:Adaptsize_policy"
+}
+
 
 # from policies.my_method import my_method
 
-
-
+def load_policy(policy_name):
+    module_path, class_name = policy_registry[policy_name].split(":")
+    module = importlib.import_module(module_path)
+    return getattr(module, class_name)
 
 
 def parse_config(exp_name):
-    #get_config
-    policy_list={
-        "LRU":LRU_policy,
-        "LFU":LFU_policy,
-        "ETM_AEP":ETM_AEP_policy,
-        "ASC_IP":ASC_IP_policy} #,"my_method":my_method}
     
     #開啟config
     config=None
@@ -38,7 +46,7 @@ def parse_config(exp_name):
 
     #初始化各功能
     trace_path = "trace/"+basic_config["trace"]
-    policy_class = policy_list[basic_config["policy"]]
+    policy_class = load_policy(basic_config["policy"])
     policy = policy_class(policy_config)
     evaluator = CacheEvaluator(evaluator_config, exp_name)
 
