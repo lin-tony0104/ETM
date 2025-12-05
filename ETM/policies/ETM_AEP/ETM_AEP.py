@@ -18,7 +18,7 @@ class evict_policy:
         self.cache = cache
 
     def evict(self):
-        victim = self.cache.pop_min()
+        victim = self.cache.pop_min() # pop o_val 最小者
         return victim
 
 
