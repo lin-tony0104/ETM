@@ -17,6 +17,7 @@ import importlib
 policy_registry={
     "LRU":"policies.LRU.LRU:LRU_policy",
     "LFU":"policies.LFU.LFU:LFU_policy",
+    "LeCaR":"policies.LeCaR.LeCaR:LeCaR_policy",
     "ETM_AEP":"policies.ETM_AEP.ETM_AEP:ETM_AEP_policy",
     "ASC_IP":"policies.ASC_IP.ASC_IP:ASC_IP_policy",
     "AdaptSize":"policies.AdaptSize.AdaptSize:Adaptsize_policy"

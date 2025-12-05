@@ -13,7 +13,7 @@ class CacheEvaluator():
 
 
     def hit_rate(self,hit,req):
-        return round(hit/req,2) if req else 0 #避免除0
+        return round(hit/req,4) if req else 0 #避免除0
 
     #
     def record(self,hit):
@@ -22,8 +22,8 @@ class CacheEvaluator():
             self.hits+=1
         if not self.requests%self.region:
             region_hit=self.hits-self.prev_hits
-            self.cum_hits_rate.append(round(self.hits / self.requests,2))
-            self.region_hits_rate.append(round(region_hit / self.region,2))
+            self.cum_hits_rate.append(round(self.hits / self.requests,4))
+            self.region_hits_rate.append(round(region_hit / self.region,4))
             if self.verbose:
                 print("exp: "+self.exp_name+" req: ",self.requests ," hit_rate: ",self.cum_hits_rate[-1] ," region_hit_rate: ",self.region_hits_rate[-1])
             

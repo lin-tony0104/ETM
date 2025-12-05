@@ -50,7 +50,7 @@ plt.title("cun_OHR")       # 標題
 plt.xlabel("cum_Request")       # x軸標註
 plt.ylabel("Hitrate")               # y軸標註
 
-plt.legend()  # 顯示圖例（標註曲線是什麼）
+plt.legend(loc='lower right')  # 顯示圖例（標註曲線是什麼）
 plt.grid(True)  # 可選：顯示網格讓曲線更好讀
 
 plt.show()
