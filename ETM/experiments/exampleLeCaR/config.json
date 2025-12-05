@@ -1,11 +1,15 @@
 {
   "basic_config":{
-    "policy":"AdaptSize",
+    "policy":"LeCaR",
     "trace":"wiki2018"
   },
   
   "policy_config":{
-      "cache_size":2748779070
+      "cache_size":2748779070,
+      "initial_weight":0.5,
+      "learning_rate":0.45,
+      "discount_rate":0.005
+      
   },
   
   "evaluator_config":{

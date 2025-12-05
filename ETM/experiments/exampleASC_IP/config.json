@@ -11,15 +11,9 @@
   },
   
   "evaluator_config":{
-      "region":1000000,
-      "verbose":true
-  },
-  "result_config":{
-      "record":true,
-      "hit_rate":1000000,
+      "region":100000,
       "verbose":true
   }
-
 
 
 }
