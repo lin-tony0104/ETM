@@ -1,7 +1,7 @@
 {
   "basic_config":{
     "policy":"LRU",
-    "trace":"wiki2018"
+    "trace":"10M_trace"
   },
   
   "policy_config":{
