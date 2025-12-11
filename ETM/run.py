@@ -90,7 +90,7 @@ if __name__ == "__main__":
             o_size = temp[1]
             o_features = temp[2:]
             hit=policy.request(o_id,o_size,o_features)
-            evaluator.record(hit) #會順便show進度
+            evaluator.record(hit,o_size) #會順便show進度
         evaluator.save_result()
 
     print("config: ")

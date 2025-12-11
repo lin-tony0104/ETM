@@ -3,6 +3,55 @@ import matplotlib.pyplot as plt
 import pickle
 import sys
     #取得實驗名稱
+
+
+
+#====================功能函數=======================
+def get_OHR(regionHit, regionReq):
+    return round(sum(regionHit)/sum(regionReq),4)
+
+def get_segOHR(regionHit, regionReq):
+    result=[]
+    for hit, req in  zip(regionHit, regionReq):
+        result.append(round(hit/req,4))
+    return result
+
+def get_cumOHR(regionHit, regionReq):
+    result = []
+    cum_req = 0
+    cum_hit = 0
+    for hit, req in  zip(regionHit, regionReq):
+        cum_req += req
+        cum_hit += hit
+        r = round(cum_hit/cum_req,4)
+        result.append(r)
+    return result 
+
+def get_BHR(regionHitByte, regionByte):
+    return round(sum(regionHitByte)/sum(regionByte),4)
+
+def get_segBHR(regionHitByte, regionByte):
+    result=[]
+    for hit_byte, byte in  zip(regionHitByte, regionByte):
+        result.append(round(hit_byte/byte,4))
+    return result
+
+def get_cumBHR(regionHitByte, regionByte):
+    result = []
+    cum_byte = 0
+    cum_hit_byte = 0
+    for hit_byte, byte in  zip(regionHitByte, regionByte):
+        cum_byte += byte
+        cum_hit_byte += hit_byte
+        r = round(cum_hit_byte/cum_byte,4)
+        result.append(r)
+    return result
+
+
+
+
+
+#===============================主程式=========================================
 if len(sys.argv)>=2:
     try:
         exps=sys.argv[1:]
@@ -19,7 +68,7 @@ else:
 
 exp_names=[]
 OHRs=[]
-cum_hits_rates =[]
+segOHRs =[]
 regions = []
 print("result: ")
 for exp in exps:
@@ -32,21 +81,23 @@ for exp in exps:
 
     with open("experiments/" + exp + "/result/result.pkl", "rb") as f:
         result_data = pickle.load(f)
-        OHRs.append(result_data["cum_hits_rate"][-1])
-        cum_hits_rates.append(result_data["cum_hits_rate"])
+
+        OHRs.append(get_OHR(result_data['ohr_regionHit'], result_data['ohr_regionReq']))
+        segOHRs.append(get_segOHR(result_data['ohr_regionHit'], result_data['ohr_regionReq']))
         regions.append(result_data["region"])
+
 
     print(exp+" OHR:", OHRs[-1])
 # print("BHR:", BHR)
 
 
 plt.figure()  # 建立圖表
-for exp_name, OHR, cum_hits_rate, region in zip(exp_names, OHRs, cum_hits_rates, regions):
-    plt.plot([region*(x+1) for x in range(len(cum_hits_rate))], cum_hits_rate, label=exp_name, linewidth=2)  # 藍色預設，label用於圖例
+for exp_name, OHR, segOHR, region in zip(exp_names, OHRs, segOHRs, regions):
+    plt.plot([region*(x+1) for x in range(len(segOHR))], segOHR, label=exp_name, linewidth=2)  # 藍色預設，label用於圖例
 
 # plt.plot(x, targets.get_result(), label="Target", linewidth=2)     # 紅色預設會自動分配
 
-plt.title("cun_OHR")       # 標題
+plt.title("segOHR")       # 標題
 plt.xlabel("cum_Request")       # x軸標註
 plt.ylabel("Hitrate")               # y軸標註
 
@@ -54,4 +105,16 @@ plt.legend(loc='lower right')  # 顯示圖例（標註曲線是什麼）
 plt.grid(True)  # 可選：顯示網格讓曲線更好讀
 
 plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
 
